@@ -24,12 +24,12 @@ $ export CGO_LDFLAGS="-L${SRCDIR}/clamav-mussels-cookbook/mussels/install/lib -l
 $ CGO_ENABLED=1 go build --ldflags '--extldflags "-static -fpic"' main.go
 
 Scan File
-$ ./main test_file/nmap 
+$ ./go-clamav test_file/nmap 
 db load succeed: 9912
 209 YARA.Unix_Packer_UpxDetail.UNOFFICIAL Virus(es) detected
 
 Scan Dir 
-$ ./main test_file 
+$ ./go-clamav test_file 
 db load succeed: 9912
 209 YARA.Unix_Packer_UpxDetail.UNOFFICIAL Virus(es) detected
 ```
