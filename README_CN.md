@@ -21,7 +21,8 @@ $ sudo bash ./prepare.sh
 $ SRCDIR=$(pwd)
 $ export CGO_CFLAGS="-g -Wall -I${SRCDIR}/clamav-mussels-cookbook/mussels/install/include"
 $ export CGO_LDFLAGS="-L${SRCDIR}/clamav-mussels-cookbook/mussels/install/lib -lclamav_static -lbz2_static -lclammspack_static -lclamunrar_iface_static -lclamunrar_static -lcrypto -ljson-c -lpcre2-8 -lpcre2-posix -lssl -lxml2 -lz -lm -ldl -lstdc++"
-$ CGO_ENABLED=1 go build --ldflags '--extldflags "-static -fpic"' main.go
+$ CGO_ENABLED=1 go build -ldflags '-linkmode external -extldflags "-static"' -o output_binary main.go
+
 
 Scan File
 $ ./go-clamav test_file/nmap 
