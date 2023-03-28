@@ -28,6 +28,7 @@ $ ./go-clamav test_file/nmap
 db load succeed: 9912
 209 YARA.Unix_Packer_UpxDetail.UNOFFICIAL Virus(es) detected
 
+
 Scan Dir 
 $ ./go-clamav test_file 
 db load succeed: 9912
