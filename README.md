@@ -17,7 +17,8 @@ apt-get update && apt-get install -y \
 
 ### Static build
 ```bash
-$ sudo bash ./prepare.sh
+$ cd example  
+$ sudo bash prepare.sh
 $ SRCDIR=$(pwd)
 $ export CGO_CFLAGS="-g -Wall -I${SRCDIR}/clamav-mussels-cookbook/mussels/install/include"
 $ export CGO_LDFLAGS="-L${SRCDIR}/clamav-mussels-cookbook/mussels/install/lib -lclamav_static -lbz2_static -lclammspack_static -lclamunrar_iface_static -lclamunrar_static -lcrypto -ljson-c -lpcre2-8 -lpcre2-posix -lssl -lxml2 -lz -lm -ldl -lstdc++"
