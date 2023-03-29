@@ -1,4 +1,4 @@
-package goclamav
+package main
 
 /*
 #include <clamav.h>
