@@ -1,13 +1,11 @@
-package main
+package goclamav
 
 /*
 #include <clamav.h>
 #include <stdlib.h>
 */
 import "C"
-import (
-	"errors"
-)
+import "errors"
 
 // ErrorCode models ClamAV errors
 type ErrorCode C.cl_error_t
@@ -125,89 +123,9 @@ const (
 // CL_INIT_DEFAULT is a macro that can be passed to cl_init() representing the default initialization settings
 const CL_INIT_DEFAULT C.uint = C.CL_INIT_DEFAULT
 
-
-func  cl_strerror(code ErrorCode) string {
-	switch (code) {
-		/* libclamav specific codes */
-		case CL_CLEAN:
-		return "No viruses detected";
-		case CL_VIRUS:
-		return "Virus(es) detected";
-		case CL_ENULLARG:
-		return "Null argument passed to function";
-		case CL_EARG:
-		return "Invalid argument passed to function";
-		case CL_EMALFDB:
-		return "Malformed database";
-		case CL_ECVD:
-		return "Broken or not a CVD file";
-		case CL_EVERIFY:
-		return "Can't verify database integrity";
-		case CL_EUNPACK:
-		return "Can't unpack some data";
-		case CL_EPARSE: /* like CL_EFORMAT but reported outside magicscan() */
-		return "Can't parse data";
-
-		/* I/O and memory errors */
-		case CL_EOPEN:
-		return "Can't open file or directory";
-		case CL_ECREAT:
-		return "Can't create new file";
-		case CL_EUNLINK:
-		return "Can't unlink file";
-		case CL_ESTAT:
-		return "Can't get file status";
-		case CL_EREAD:
-		return "Can't read file";
-		case CL_ESEEK:
-		return "Can't set file offset";
-		case CL_EWRITE:
-		return "Can't write to file";
-		case CL_EDUP:
-		return "Can't duplicate file descriptor";
-		case CL_EACCES:
-		return "Can't access file";
-		case CL_ETMPFILE:
-		return "Can't create temporary file";
-		case CL_ETMPDIR:
-		return "Can't create temporary directory";
-		case CL_EMAP:
-		return "Can't map file into memory";
-		case CL_EMEM:
-		return "Can't allocate memory";
-		case CL_ETIMEOUT:
-		return "Exceeded time limit";
-		/* internal (needed for debug messages) */
-		case CL_EMAXREC:
-		return "Exceeded max recursion depth";
-		case CL_EMAXSIZE:
-		return "Exceeded max scan size";
-		case CL_EMAXFILES:
-		return "Exceeded max scan files";
-		case CL_EFORMAT:
-		return "Bad format or broken data";
-		case CL_EBYTECODE:
-		return "Error during bytecode execution";
-		case CL_EBYTECODE_TESTFAIL:
-		return "Failure in bytecode testmode";
-		case CL_ELOCK:
-		return "Mutex lock failed";
-		case CL_EBUSY:
-		return "Scanner still active";
-		case CL_ESTATE:
-		return "Bad state (engine not initialized, or already initialized)";
-		case CL_ERROR:
-		return "Unspecified error";
-		case CL_VERIFIED:
-		return "The scanned object was verified and deemed trusted";
-		default:
-		return "Unknown error code";
-	}
-}
-
 // Wraps the corresponding error message
 func Strerr(code ErrorCode) error {
-	err := errors.New(cl_strerror(code))
+	err := errors.New(C.GoString(C.cl_strerror(C.int(code))))
 	return err
 }
 

@@ -2,7 +2,7 @@
 // license that can be found in the LICENSE file.
 
 // Package go-clamav is go wrapper for libclamav see https://docs.clamav.net/manual/Development/libclamav.html
-package main
+package goclamav
 
 /*
 #include <clamav.h>
